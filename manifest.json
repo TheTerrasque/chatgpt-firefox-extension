@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "OpenAI Chat Interaction",
+  "version": "1.0",
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "permissions": [
+    "activeTab",
+    "webRequest",
+    "webRequestBlocking",
+    "https://chat.openai.com/"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["https://chat.openai.com/*"],
+      "js": ["frontground.js"]
+    }
+  ],
+
+  "web_accessible_resources": [
+    "resources/favicon-32x32.png",
+    "resources/favicon-32x32-blue.png",
+    "resources/favicon-32x32-red.png",
+    "resources/favicon-32x32-yellow.png",
+    "resources/style.css"
+  ]
+}

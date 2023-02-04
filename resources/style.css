@@ -1,0 +1,25 @@
+.ext-ff-chatgpt {
+    position: fixed;
+    top: 0;
+    right: 18px;
+    padding: 7px;
+    border: 1px solid;
+    border-radius: 5px;
+    font-size: small;
+}
+
+.ext-ff-chatgpt-rph-text {
+    padding-right:1ex;
+    display:none;
+}
+
+.ext-ff-chatgpt:hover .ext-ff-chatgpt-rph-text {
+    display:inline-block;
+}
+.ext-ff-chatgpt-message {
+    color: rgb(97, 12, 12);
+}
+
+.ext-ff-chatgpt-message[color-scheme="dark"] {
+    color: rgb(181, 21, 21);
+}

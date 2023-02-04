@@ -49,10 +49,6 @@ function frontendReceiver(request, sender, sendResponse) {
         setTabIcon(redIcon);
         reloadNeeded = true;
     }
-    if (request.action === "sessionData") {
-        console.log("sessionData:", request.data);
-        userData = request.data;
-    }
     if (request.action === "openaiAnswerReceivedComplete") {
         console.log("openaiAnswerReceivedComplete");
         if (request.status === 403) {

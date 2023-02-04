@@ -11,17 +11,12 @@ browser.webRequest.onBeforeRequest.addListener(
     ["blocking"]
 );
 
-
-
 browser.webRequest.onCompleted.addListener(
     function (details) {
         if (details.method === "POST" && details.url === openaiChatURL) {
             browser.tabs.sendMessage(details.tabId, { action: "openaiAnswerReceivedComplete", status: details.statusCode });
         }
         if (details.method === "GET" && details.url === openaiSessionURL) {
-            if (details.statusCode === 200) {
-                browser.tabs.sendMessage(details.tabId, { action: "sessionDataReceived" });
-            }
             if (details.statusCode === 403) {
                 browser.tabs.sendMessage(details.tabId, { action: "sessionDataError", status: details.statusCode });
             }
@@ -49,33 +44,4 @@ browser.webRequest.onErrorOccurred.addListener(
         }
     },
     { urls: [openaiChatURL, openaiSessionURL] }
-);
-
-function listener(details) {
-    let filter = browser.webRequest.filterResponseData(details.requestId);
-    let decoder = new TextDecoder("utf-8");
-  
-    filter.ondata = (event) => {
-        console.log(`filter.ondata received ${event.data.byteLength} bytes`);
-        let str = decoder.decode(event.data, {stream: true});
-        let json = JSON.parse(str);
-        browser.tabs.sendMessage(details.tabId, { action: "sessionData", data: json.user });
-        filter.write(event.data);
-      };
-      filter.onstop = (event) => {
-        // The extension should always call filter.close() or filter.disconnect()
-        // after creating the StreamFilter, otherwise the response is kept alive forever.
-        // If processing of the response data is finished, use close. If any remaining
-        // response data should be processed by Firefox, use disconnect.
-        console.log("filter.onstop", event);
-        filter.close();
-      };
-  
-    return {};
-  }
-
-
-browser.webRequest.onBeforeRequest.addListener(listener,
-    { urls: [openaiSessionURL] },
-    ["blocking"]
 );

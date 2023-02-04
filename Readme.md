@@ -12,9 +12,9 @@ This extension enhances your web browsing experience by adding some features to 
 
 Follow these steps to install the ChatGPT Firefox Extension as a temporary add-on:
 
-1. Download the XPI file from the source
+1. Download the files in the repository
 2. Open Firefox and navigate to about:debugging
-3. Click on "Load Temporary Add-on" and select the downloaded XPI file
+3. Click on "Load Temporary Add-on" and select the folder of the downlaoded files
 4. The extension should now be installed and active in your browser
 
 ## Usage

@@ -52,12 +52,18 @@ function frontendReceiver(request, sender, sendResponse) {
     if (request.action === "openaiAnswerReceivedComplete") {
         console.log("openaiAnswerReceivedComplete");
         if (request.status === 403) {
+            unLogRequest();
             console.log("Refresh needed");
             reloadNeeded = true;
             setTabIcon(redIcon);
         }
+        if (request.status === 500) {
+            setTabIcon(redIcon);
+            console.log("Server Error");
+        }
         if (request.status === 429) {
             setTabIcon(redIcon);
+            unLogRequest();
             console.log("Too many requests");
         }
         // 403 = refresh needed
@@ -79,6 +85,11 @@ function setTabIcon(icon) {
     for (var i = 0; i < icons.length; i++) {
         icons[i].href = icon;
     }
+}
+
+function unLogRequest() {
+    requestList.pop();
+    saveRequestList();
 }
 
 function logRequest() {
